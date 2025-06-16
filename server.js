@@ -1,5 +1,4 @@
 const http = require("http");
-const https = require("https");
 
 const server = http.createServer((req, res) => {
   if (req.url.includes("ps3-updatelist.txt")) {
@@ -27,7 +26,7 @@ const server = http.createServer((req, res) => {
   }
 });
 
-const PORT = process.env.PORT || 80;
-server.listen(PORT, () => {
+const PORT = process.env.PORT || 8080;
+server.listen(PORT, "0.0.0.0", () => {
   console.log("Proxy PS3 ativo na porta " + PORT);
 });
