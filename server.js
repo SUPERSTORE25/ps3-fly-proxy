@@ -26,7 +26,7 @@ const server = http.createServer((req, res) => {
   }
 });
 
-const PORT = process.env.PORT || 8080;
-server.listen(PORT, "0.0.0.0", () => {
+const PORT = process.env.PORT || 3000;
+server.listen("0.0.0.0", PORT, () => {
   console.log("Proxy PS3 ativo na porta " + PORT);
 });
