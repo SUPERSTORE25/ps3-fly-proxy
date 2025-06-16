@@ -1,11 +1,26 @@
 const http = require("http");
-const httpProxy = require("http-proxy");
-
-const proxy = httpProxy.createProxyServer({ changeOrigin: true });
+const https = require("https");
 
 const server = http.createServer((req, res) => {
   if (req.url.includes("ps3-updatelist.txt")) {
-    proxy.web(req, res, { target: "http://update.superstoregames.com" });
+    const options = {
+      hostname: "update.superstoregames.com",
+      port: 80,
+      path: "/PS3/list/ps3-updatelist.txt",
+      method: "GET",
+    };
+
+    const proxyReq = http.request(options, proxyRes => {
+      res.writeHead(proxyRes.statusCode, proxyRes.headers);
+      proxyRes.pipe(res);
+    });
+
+    proxyReq.on("error", err => {
+      res.writeHead(502, { "Content-Type": "text/plain" });
+      res.end("Erro ao redirecionar a atualização do PS3.");
+    });
+
+    proxyReq.end();
   } else {
     res.writeHead(403, { "Content-Type": "text/plain" });
     res.end("Acesso negado: proxy PS3 ativo apenas para update.");
