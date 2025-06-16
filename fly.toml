@@ -7,7 +7,7 @@ primary_region = "gru"
 auto_rollback = true
 
 [[services]]
-  internal_port = 8080
+  internal_port = 3000
   protocol = "tcp"
 
   [[services.ports]]
